@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .home-containers{
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+    }
+</style>
+
+<h1>{{ position }} Techniques</h1>
+
+
+<div class="home-containers">
+    <div>
+        <h3>Positions</h3>
+        <hr>
+        {% for position in positions %}
+        <div>
+            <a href="{% url 'position'  position.name %}">{{ position }}</a>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <div>
+        <h3>Techniques</h3>
+        <hr>
+        {% for technique in techniques %}
+            <p><a href="{% url 'technique' technique.id %}">{{ technique.name }}</a></p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

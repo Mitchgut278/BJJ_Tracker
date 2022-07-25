@@ -19,7 +19,7 @@
         <hr>
         {% for position in positions %}
         <div>
-            <a href="{% url 'home' %}?q={{ position }}">{{ position }}</a>
+            <a href="{% url 'position'  position.name %}">{{ position }}</a>
         </div>
         {% endfor %}
     </div>
@@ -27,10 +27,6 @@
 
     <div>
         <h3>Techniques</h3>
-        <hr>
-        {% for technique in techniques %}
-            <p><a href="">{{ technique.name }}</a></p>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}

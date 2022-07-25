@@ -7,5 +7,5 @@ class TechniqueForm(ModelForm):
     class Meta:
         model = Technique
         fields = '__all__'
-        
+        exclude = ['id']
 
