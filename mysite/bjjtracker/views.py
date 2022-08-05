@@ -71,16 +71,21 @@ def moveOfTheDay(request):
         motd = MOTD.objects.get(date=date)
         technique = Technique.objects.get(id=motd.technique.id)
     except Exception as e:
-        techniques = list(Technique.objects.all())
-        technique = random.choice(techniques)
+        technique = random.choice(list(Technique.objects.all()))
         motd = MOTD(
             date = date,
             technique = technique,
         )
         motd.save()
     if request.method == 'POST':
-        motd.completed = True
-        motd.save()
+        if request.POST.get('completed'):
+            motd.completed = True
+            motd.save()
+        if request.POST.get('skip'):
+            technique = random.choice(list(Technique.objects.all()))
+            motd.technique = technique
+            motd.completed = False
+            motd.save()
         
     context = {'technique' : technique, 'motd':motd}
     return render(request, 'bjjtracker/motd.html', context)
