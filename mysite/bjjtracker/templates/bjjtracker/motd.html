@@ -20,4 +20,14 @@
     <h3>Date Learned:</h3>
     <p>{{ technique.date }}</p>
 </div>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <button type="submit" value="completed">Completed</button>
+    {% if motd.completed %}
+    <span>&#10003;</span>
+    {% else %}
+    <span>X</span>
+    {% endif %}
+</form>
 {% endblock %}

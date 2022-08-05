@@ -67,7 +67,6 @@ def deleteTechnique(request, pk):
 
 def moveOfTheDay(request):
     date = datetime.date.today()
-
     try:
         motd = MOTD.objects.get(date=date)
         technique = Technique.objects.get(id=motd.technique.id)
@@ -79,5 +78,9 @@ def moveOfTheDay(request):
             technique = technique,
         )
         motd.save()
+    if request.method == 'POST':
+        motd.completed = True
+        motd.save()
+        
     context = {'technique' : technique, 'motd':motd}
     return render(request, 'bjjtracker/motd.html', context)
