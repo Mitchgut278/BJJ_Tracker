@@ -10,12 +10,13 @@
 </style>
 
 <h1>{{ position }} Techniques</h1>
-
+<a href="{% url 'create-technqiue' %}">New Technique</a>
 
 <div class="home-containers">
     <div>
         <h3>Positions</h3>
         <hr>
+        
         {% for position in positions %}
         <div>
             <a href="{% url 'position'  position.name %}">{{ position }}</a>

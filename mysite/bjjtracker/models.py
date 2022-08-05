@@ -30,6 +30,7 @@ class Technique(models.Model):
     def __str__(self):
         return(self.name)
 
+
 class Tag(models.Model):
     name = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
@@ -37,3 +38,9 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class MOTD(models.Model):
+    technique = models.ForeignKey(Technique, on_delete=models.CASCADE)
+    date = models.DateField(primary_key=True, auto_now=True)
+    completed = models.BooleanField(default=False)

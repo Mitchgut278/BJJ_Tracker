@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from .models import Position, Technique, Tag
+from .models import Position, Technique, Tag, MOTD
 from .forms import TechniqueForm
+
+import datetime
+import random
 # Create your views here.
 
 def home(request):
@@ -60,3 +63,21 @@ def deleteTechnique(request, pk):
         return redirect('home')
     context = {'obj':technique}
     return render(request, 'bjjtracker/delete.html', context)
+
+
+def moveOfTheDay(request):
+    date = datetime.date.today()
+
+    try:
+        motd = MOTD.objects.get(date=date)
+        technique = Technique.objects.get(id=motd.technique.id)
+    except Exception as e:
+        techniques = list(Technique.objects.all())
+        technique = random.choice(techniques)
+        motd = MOTD(
+            date = date,
+            technique = technique,
+        )
+        motd.save()
+    context = {'technique' : technique, 'motd':motd}
+    return render(request, 'bjjtracker/motd.html', context)

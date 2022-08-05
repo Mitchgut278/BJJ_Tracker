@@ -11,5 +11,6 @@ urlpatterns = [
 
     path('position/<str:name>', views.positionView, name='position'),
 
+    path('move-of-the-day', views.moveOfTheDay, name='move-of-the-day'),
     
 ]
