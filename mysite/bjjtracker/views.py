@@ -79,7 +79,7 @@ def moveOfTheDay(request):
         motd.save()
     if request.method == 'POST':
         if request.POST.get('completed'):
-            motd.completed = True
+            motd.completed = not motd.completed
             motd.save()
         if request.POST.get('skip'):
             technique = random.choice(list(Technique.objects.all()))
