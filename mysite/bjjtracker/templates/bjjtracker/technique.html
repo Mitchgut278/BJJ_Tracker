@@ -24,6 +24,13 @@
         <p>{{ technique.date }}</p>
     </div>
 
+    {% if technique.video %}
+    <div>
+        <video width="320" height="240" autoplay="autoplay" controls="controls" preload="preload">
+            <source src="{{ technique.video.url }}" type="video/mp4"></source>
+        </video>
+    </div>
+    {% endif %}
 
 </div>
 {% endblock %}

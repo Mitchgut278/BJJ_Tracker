@@ -25,6 +25,7 @@ class Technique(models.Model):
     steps = models.TextField(null=True, blank=True)
     details = models.TextField(null=True, blank=True)
     comments = models.TextField(null=True, blank=True)
+    video = models.FileField(null=True, blank=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     def __str__(self):
