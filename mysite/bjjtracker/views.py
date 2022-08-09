@@ -1,17 +1,18 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from .models import Position, Technique, Tag, MOTD
-from .forms import TechniqueForm, CreateUserForm
-from django.contrib.auth.forms import UserCreationForm
+from .forms import TechniqueForm, CustomUserCreationForm
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 
 import datetime
 import random
 # Create your views here.
 
 def loginUser(request):
-
+    page = 'login'
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -21,7 +22,7 @@ def loginUser(request):
         if user is not None:
             login(request, user)
             return redirect('home')
-    context = {}
+    context = {'page':page}
     return render(request, 'bjjtracker/login_register.html', context)
 
 
@@ -30,12 +31,22 @@ def logoutUser(request):
     return redirect('login')
 
 def registerUser(request):
-    form = CreateUserForm()
+    page = 'register'
+    form = CustomUserCreationForm()
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
-        if form.is_valid:
-            form.save()
-    context = {'form': form}
+        form = CustomUserCreationForm(request.POST)
+        print(form.data)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            
+            user = authenticate(request, username=user.username, password=request.POST['password1'])
+            
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+                
+    context = {'form': form, 'page':page}
     return render(request, 'bjjtracker/login_register.html', context)
 
 
