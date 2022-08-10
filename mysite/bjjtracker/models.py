@@ -1,4 +1,5 @@
 from tkinter import CASCADE
+from django.contrib.auth.models import User
 from turtle import position
 from django.db import models
 import uuid
@@ -20,6 +21,7 @@ class Technique(models.Model):
     name = models.CharField(max_length=100)
     position = models.ForeignKey(Position, on_delete=models.CASCADE)
     topBottom = models.CharField(max_length=10, choices=TOP_BOTTOM, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     tags = models.ManyToManyField('Tag', blank=True)
     date = models.DateTimeField(auto_now=True)
     steps = models.TextField(null=True, blank=True)
@@ -42,6 +44,11 @@ class Tag(models.Model):
 
 
 class MOTD(models.Model):
+    
     technique = models.ForeignKey(Technique, on_delete=models.CASCADE)
-    date = models.DateField(primary_key=True, auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now=True)
     completed = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together=['technique','user']

@@ -12,7 +12,7 @@ class TechniqueForm(ModelForm):
     class Meta:
         model = Technique
         fields = '__all__'
-        exclude = ['id']
+        exclude = ['id', 'user']
 
 
 class CustomUserCreationForm(UserCreationForm):
