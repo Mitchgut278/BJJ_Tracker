@@ -50,5 +50,7 @@ class MOTD(models.Model):
     date = models.DateField(auto_now=True)
     completed = models.BooleanField(default=False)
 
+    
     class Meta:
+        # Can only have 1 MOTD per user per day (UNIQUE Constraint)
         unique_together=['date','user']
