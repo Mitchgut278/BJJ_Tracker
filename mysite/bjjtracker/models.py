@@ -51,4 +51,4 @@ class MOTD(models.Model):
     completed = models.BooleanField(default=False)
 
     class Meta:
-        unique_together=['technique','user']
+        unique_together=['date','user']
