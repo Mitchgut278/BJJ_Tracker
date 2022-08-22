@@ -1,3 +1,4 @@
+from turtle import position
 from django.shortcuts import render, redirect
 from django.db.models import Q
 
@@ -54,11 +55,13 @@ def registerUser(request):
 
 @login_required(login_url='login')
 def home(request):
-    q = request.GET.get('q') if request.GET.get('q') != None else ''
-    techniques = Technique.objects.filter(
-        Q(position__name__icontains=q)
-    )
-
+    # q = request.GET.get('q') if request.GET.get('q') != None else ''
+    # if q:
+    #     techniques = Technique.objects.filter(
+    #         Q(position__name__icontains=q)
+    #     )
+    # else:
+    techniques = Technique.objects.filter(user=request.user).order_by('position')
     positions = Position.objects.all()
 
     context = {'positions':positions, 'techniques':techniques}

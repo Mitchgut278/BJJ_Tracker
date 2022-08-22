@@ -22,6 +22,11 @@
 
     <div>
         <h3>Techniques</h3>
+        {% for technique in techniques %}
+        <div>
+            <a href="{% url 'technique'  technique.name %}">{{ technique }}</a>
+        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
