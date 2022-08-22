@@ -6,7 +6,13 @@
 {% for obj in objects %}
     <p>{{ obj.technique }}</p>
     <p>{{ obj.date }}</p>
-    <p>{{ obj.completed }}</p>
+    <p>
+        {% if obj.completed %}
+        completed
+        {% else %}
+        failed
+        {% endif %}
+    </p>
     <br>
 {% endfor %}
 
