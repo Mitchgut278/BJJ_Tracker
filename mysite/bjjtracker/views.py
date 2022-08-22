@@ -55,16 +55,17 @@ def registerUser(request):
 
 @login_required(login_url='login')
 def home(request):
-    # q = request.GET.get('q') if request.GET.get('q') != None else ''
-    # if q:
-    #     techniques = Technique.objects.filter(
-    #         Q(position__name__icontains=q)
-    #     )
-    # else:
-    techniques = Technique.objects.filter(user=request.user).order_by('position')
+    q = request.GET.get('search-area') if request.GET.get('search-area') != None else ''
+    if q:
+        techniques = Technique.objects.filter(
+            Q(position__name__icontains=q) |
+            Q(name__icontains=q)
+        )
+    else:
+        techniques = Technique.objects.filter(user=request.user).order_by('position')
     positions = Position.objects.all()
 
-    context = {'positions':positions, 'techniques':techniques}
+    context = {'positions':positions, 'techniques':techniques, 'search_input':q}
     return render(request, 'bjjtracker/home.html', context)
 
 
