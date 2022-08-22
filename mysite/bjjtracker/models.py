@@ -2,6 +2,7 @@ from tkinter import CASCADE
 from django.contrib.auth.models import User
 from turtle import position
 from django.db import models
+from datetime import datetime
 import uuid
 
 # Create your models here.
@@ -31,7 +32,7 @@ class Technique(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     def __str__(self):
-        return(self.name)
+        return "".join((self.name, " from ", self.topBottom, " ", self.position.name))
 
 
 class Tag(models.Model):
@@ -49,8 +50,11 @@ class MOTD(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
     completed = models.BooleanField(default=False)
+         
 
-    
     class Meta:
         # Can only have 1 MOTD per user per day (UNIQUE Constraint)
         unique_together=['date','user']
+
+    def __str__(self):
+        return(self.technique)

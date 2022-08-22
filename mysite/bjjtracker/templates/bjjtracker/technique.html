@@ -4,7 +4,7 @@
 
 <div>
     <div>
-        <h1>{{ technique.name }} from {{ technique.topBottom}} {{ technique.position }}</h1>
+        <h1>{{ technique }}</h1>
         <a href="{% url 'update-technique' technique.id %}">Update</a>
         <a href="{% url 'delete-technique' technique.id %}">Delete</a>
         <hr>

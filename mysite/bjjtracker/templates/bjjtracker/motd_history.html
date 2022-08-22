@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<h1>Move of the Day History</h1>
+<h6>Current Streak: {{ streak }}</h6>
+{% for obj in objects %}
+    <p>{{ obj.technique }}</p>
+    <p>{{ obj.date }}</p>
+    <p>{{ obj.completed }}</p>
+    <br>
+{% endfor %}
+
+
+{% endblock %}

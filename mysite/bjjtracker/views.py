@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
+
+from .helpers import getCurrentStreak
 from .models import Position, Technique, Tag, MOTD
 from .forms import TechniqueForm, CustomUserCreationForm
 
@@ -8,7 +10,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 
 from django.shortcuts import get_object_or_404
-
 import datetime
 import random
 # Create your views here.
@@ -144,3 +145,12 @@ def moveOfTheDay(request):
         
     context = {'technique' : technique, 'motd':motd}
     return render(request, 'bjjtracker/motd.html', context)
+
+
+@login_required(login_url='login')
+def moveOfTheDayHistory(request):
+    user = request.user
+    objects = MOTD.objects.filter(user=user).order_by('date')
+    streak = getCurrentStreak(request)
+    context = {'objects':objects, 'streak':streak}
+    return render(request, 'bjjtracker/motd_history.html', context)
