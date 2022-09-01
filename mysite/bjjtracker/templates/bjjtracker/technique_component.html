@@ -1,0 +1,45 @@
+<div>
+    <div>
+        <h1>{{ technique }}</h1>
+        <a href="{% url 'update-technique' technique.id %}">Update</a>
+        <a href="{% url 'delete-technique' technique.id %}">Delete</a>
+        <hr>
+    </div>    
+       
+    <div>
+        <h3>Steps:</h3>
+        
+        <ol>
+            {% for step in steps %}
+            <li>{{ step }}</li>
+            {% endfor %}
+        </ol>
+        
+
+        <h3>Details:</h3>
+        <ul>
+            {% for detail in details %}
+            <li>{{ detail }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Comments:</h3>
+        <ul>
+            {% for comment in comments %}
+            <li>{{ comment }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Date Learned:</h3>
+        <p>{{ technique.date }}</p>
+    </div>
+
+    {% if technique.video %}
+    <div>
+        <video width="320" height="240" autoplay="autoplay" controls="controls" preload="preload">
+            <source src="{{ technique.video.url }}" type="video/mp4"></source>
+        </video>
+    </div>
+    {% endif %}
+
+</div>

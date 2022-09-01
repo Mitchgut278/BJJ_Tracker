@@ -8,17 +8,7 @@
 
 
 <div>
-    <h3>Steps:</h3>
-    <p>{{ technique.steps }}</p>
-
-    <h3>Details:</h3>
-    <p>{{ technique.details }}</p>
-
-    <h3>Comments:</h3>
-    <p>{{ technique.comments }}</p>
-
-    <h3>Date Learned:</h3>
-    <p>{{ technique.date }}</p>
+    {% include 'bjjtracker/technique_component.html' %}
 </div>
 
 <form action="" method="post">
