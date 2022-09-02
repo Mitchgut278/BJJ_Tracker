@@ -45,7 +45,6 @@ class Tag(models.Model):
 
 
 class MOTD(models.Model):
-    
     technique = models.ForeignKey(Technique, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
@@ -58,3 +57,12 @@ class MOTD(models.Model):
 
     def __str__(self):
         return(self.technique)
+
+
+class TrainingSession(models.Model):
+    date = models.DateField()
+    time_trained = models.IntegerField()
+    numRolls = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return "".join((self.date, " for ", self.time_trained, "minutes"))

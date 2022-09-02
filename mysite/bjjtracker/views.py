@@ -4,7 +4,7 @@ from django.db.models import Q
 
 from .helpers import getCurrentStreak
 from .models import Position, Technique, Tag, MOTD
-from .forms import TechniqueForm, CustomUserCreationForm
+from .forms import TechniqueForm, CustomUserCreationForm, TrainingSessionForm
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -82,7 +82,10 @@ def positionView(request, name):
 @login_required(login_url='login')
 def techniqueView(request, pk):
     technique = get_object_or_404(Technique, id=pk, user=request.user)
-    context = {'technique': technique}
+    steps = technique.steps.split('\n')
+    details = technique.details.split('\n')
+    comments = technique.comments.split('\n')
+    context = {'technique': technique, 'steps': steps, 'details': details, 'comments': comments}
     return render(request, 'bjjtracker/technique.html', context)
 
 
@@ -158,3 +161,11 @@ def moveOfTheDayHistory(request):
     streak = getCurrentStreak(request)
     context = {'objects':objects, 'streak':streak}
     return render(request, 'bjjtracker/motd_history.html', context)
+
+
+@login_required(login_url='login')
+def logTrainingSession(request):
+    form = TrainingSessionForm()
+    user = request.user
+    context = {form:form}
+    return render(request, 'bjjtracker/log_training_session.html', context)

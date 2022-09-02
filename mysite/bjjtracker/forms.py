@@ -1,6 +1,6 @@
 from dataclasses import fields
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, DateInput
 from .models import *
 
 from django import forms
@@ -25,4 +25,13 @@ class CustomUserCreationForm(UserCreationForm):
         self.fields['username'].widget.attrs.update({'class':'form-control', 'placeholder': 'Enter username...'})
         self.fields['password1'].widget.attrs.update({'class':'form-control', 'placeholder': 'Enter password...'})
         self.fields['password2'].widget.attrs.update({'class':'form-control', 'placeholder': 'Confirm password...'})
-        
+
+
+class TrainingSessionForm(ModelForm, DateInput):
+    input_type = 'date'
+    class Meta:
+        model = TrainingSession
+        fields = ['date', 'time_trained', 'numRolls']
+        widgets = {
+            'date': DateInput(),
+        }
