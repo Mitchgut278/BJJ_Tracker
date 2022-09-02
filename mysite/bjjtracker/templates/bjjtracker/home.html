@@ -28,7 +28,7 @@
         </form>
         {% for technique in techniques %}
         <div>
-            <a href="{% url 'technique'  technique.name %}">{{ technique }}</a>
+            <a href="{% url 'technique'  technique.id %}">{{ technique }}</a>
         </div>
         {% endfor %}
     </div>
