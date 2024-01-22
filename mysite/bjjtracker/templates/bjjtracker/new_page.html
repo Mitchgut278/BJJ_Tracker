@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="page-container">
+    
+    <div class="nav-container">
+        <nav style="height: 5% !important;">
+            {% include 'navbar.html' %}
+        </nav>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-container box-1">
+                <h3>Positions</h3>
+                <hr>
+                {% for position in positions %}
+                <div>
+                    <a href="{% url 'position'  position.name %}">{{ position }}</a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="sidebar-container box-2">
+                <h1>Hello</h1>
+            </div>
+            <div class="sidebar-container box-3">
+                <h1>Hello</h1>
+            </div>
+        </div>
+        <div class="all-entries">
+
+        </div>
+    </div>
+</div>
+{% endblock %}

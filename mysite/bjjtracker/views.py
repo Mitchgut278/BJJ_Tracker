@@ -13,7 +13,29 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import get_object_or_404
 import datetime
 import random
+
 # Create your views here.
+def testLanding(request):
+    q = request.GET.get('search-area') if request.GET.get('search-area') != None else ''
+    if q:
+        techniques = Technique.objects.filter(
+            Q(position__name__icontains=q) |
+            Q(name__icontains=q)
+        )
+    else:
+        techniques = Technique.objects.filter(user=request.user).order_by('position')
+    positions = Position.objects.all()
+
+    context = {'positions':positions, 'techniques':techniques, 'search_input':q}
+    return render(request, 'bjjtracker/test_landing.html')
+
+def newPage(request):
+
+    positions = Position.objects.all()
+    techniques = Technique.objects.all()
+    context = {'positions':positions, 'techniques':techniques}
+    return render(request, 'bjjtracker/new_page.html', context)
+
 
 def loginUser(request):
     page = 'login'

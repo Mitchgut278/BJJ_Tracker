@@ -17,4 +17,6 @@ urlpatterns = [
 
     path('move-of-the-day/', views.moveOfTheDay, name='move-of-the-day'),
     path('move-of-the-day-history/', views.moveOfTheDayHistory, name='move-of-the-day-history'),
+    path('test_landing/', views.testLanding),
+    path('new_page/', views.newPage),
 ]
